@@ -23,7 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MySqlTest {
 
     @Container
-    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9.2");
+    @ServiceConnection
+    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9");
 
     @Autowired
     BeerRepository beerRepository;
