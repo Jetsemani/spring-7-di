@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MySqlTest {
 
     @Container
-    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9");
+    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9.2");
 
     @DynamicPropertySource
     static void mySqlProperties(DynamicPropertyRegistry registry) {
