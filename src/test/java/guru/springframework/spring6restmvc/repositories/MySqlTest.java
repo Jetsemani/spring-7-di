@@ -24,7 +24,7 @@ public class MySqlTest {
 
     @Container
     @ServiceConnection
-    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9");
+    static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:9.2");
 
     @Autowired
     BeerRepository beerRepository;
