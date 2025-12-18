@@ -1,7 +1,7 @@
-package guru.springframework.spring6restmvc.services;
+package guru.springframework.spring7restmvc.services;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import guru.springframework.spring6restmvc.model.BeerCSVRecord;
+import guru.springframework.spring7restmvc.model.BeerCSVRecord;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
