@@ -1,4 +1,4 @@
-package guru.springframework.spring6restmvc.repositories;
+package guru.springframework.spring7restmvc.repositories;
 
 import guru.springframework.spring7restmvc.entities.Beer;
 import org.junit.jupiter.api.Test;
