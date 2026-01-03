@@ -14,7 +14,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package guru.springframework.spring6restmvc.entities;
+package guru.springframework.spring7restmvc.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
