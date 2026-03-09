@@ -1,10 +1,10 @@
-package controller;
+package guru.springframework.spring7restmvc.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import model.Beer;
+import guru.springframework.spring7restmvc.model.Beer;
 import org.springframework.stereotype.Controller;
-import services.BeerService;
+import guru.springframework.spring7restmvc.services.BeerService;
 
 import java.util.UUID;
 
