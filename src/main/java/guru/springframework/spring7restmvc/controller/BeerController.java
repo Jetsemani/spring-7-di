@@ -16,7 +16,7 @@ import java.util.UUID;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/beer/")
+@RequestMapping("/api/v1/beer")
 public class BeerController {
 
     private final BeerService beerService;
@@ -26,7 +26,7 @@ public class BeerController {
         return beerService.listBeers();
     }
 
-    @RequestMapping(value = "{beerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{beerId}", method = RequestMethod.GET)
     public Beer getBeerById(@PathVariable UUID beerId) {
 
         log.debug("Get Beer by Id -- In Controller");
