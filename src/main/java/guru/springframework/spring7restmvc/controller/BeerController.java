@@ -1,6 +1,7 @@
 package guru.springframework.spring7restmvc.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import guru.springframework.spring7restmvc.model.Beer;
 import org.springframework.http.HttpHeaders;
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@AllArgsConstructor
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/beer")
 public class BeerController {
 
