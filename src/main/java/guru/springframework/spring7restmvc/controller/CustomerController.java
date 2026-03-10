@@ -3,6 +3,7 @@ package guru.springframework.spring7restmvc.controller;
 import guru.springframework.spring7restmvc.model.Customer;
 import guru.springframework.spring7restmvc.services.CustomerService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@AllArgsConstructor
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 
@@ -61,8 +62,11 @@ public class CustomerController {
         return customerService.listCustomers();
     }
 
+
     @RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
     public Customer getCustomerById(@PathVariable UUID customerId) {
+
+        log.debug("Get Customer by Id -- In Controller - 1234");
         return customerService.getCustomerById(customerId);
     }
 }
