@@ -1,5 +1,6 @@
 package guru.springframework.spring7restmvc.services;
 
+import guru.springframework.spring7restmvc.model.Beer;
 import guru.springframework.spring7restmvc.model.Customer;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface CustomerService {
     Customer getCustomerById(UUID id);
 
     Customer saveNewCustomer(Customer customer);
+
+    void updateCustomerById(UUID customerId, Customer customer);
 }
