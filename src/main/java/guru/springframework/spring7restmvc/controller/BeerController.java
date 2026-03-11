@@ -22,6 +22,32 @@ public class BeerController {
 
     private final BeerService beerService;
 
+    @GetMapping(value = BEER_PATH)
+    public List<Beer> listBeers() {
+        return beerService.listBeers();
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity handleNotFoundException() {
+        System.out.println("Exception OK -> Cerveza no encontrada por ID");
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping(value = BEER_PATH_ID)
+    public Beer getBeerById(@PathVariable UUID beerId) {
+        return beerService.getBeerById(beerId);
+    }
+
+    @PutMapping(BEER_PATH_ID)
+    public ResponseEntity updateById(@PathVariable("beerId")UUID beerId, @RequestBody Beer beer) {
+
+        beerService.updateBeerById(beerId, beer);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
     @PatchMapping(BEER_PATH_ID)
     public ResponseEntity updateBeerPatchById(@PathVariable("beerId")UUID beerId, @RequestBody Beer beer){
 
@@ -38,14 +64,6 @@ public class BeerController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping(BEER_PATH_ID)
-    public ResponseEntity updateById(@PathVariable("beerId")UUID beerId, @RequestBody Beer beer) {
-
-        beerService.updateBeerById(beerId, beer);
-
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
     @PostMapping(BEER_PATH)
     //@RequestMapping(method = RequestMethod.POST)
     public ResponseEntity handlePost(@RequestBody Beer beer) {
@@ -56,18 +74,5 @@ public class BeerController {
         headers.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = BEER_PATH)
-    public List<Beer> listBeers() {
-        return beerService.listBeers();
-    }
-
-
-    @GetMapping(value = BEER_PATH_ID)
-    public Beer getBeerById(@PathVariable UUID beerId) {
-
-        log.debug("Get Beer by Id -- In Controller - 1234");
-        return beerService.getBeerById(beerId);
     }
 }
