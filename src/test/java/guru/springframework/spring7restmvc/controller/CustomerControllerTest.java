@@ -55,51 +55,27 @@ class CustomerControllerTest {
     ArgumentCaptor<Customer> customerArgumentCaptor;
 
     @Test
-    void testPatchCustomer() throws Exception {
-        Customer customer = customerServiceImpl.listCustomers().get(0);
+    void listAllCustomers() throws Exception {
+        given(customerService.listCustomers()).willReturn(customerServiceImpl.listCustomers());
 
-        Map<String, Object> customerMap = new HashMap<>();
-        customerMap.put("name", "New Name");
-
-        mockMvc.perform(patch( CustomerController.CUSTOMER_PATH + "/" + customer.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(customerMap)))
-                .andExpect(status().isNoContent());
-
-        verify(customerService).patchCustomerById(uuidArgumentCaptor.capture(),
-                customerArgumentCaptor.capture());
-
-        assertThat(uuidArgumentCaptor.getValue()).isEqualTo(customer.getId());
-        assertThat(customerArgumentCaptor.getValue().getName())
-                .isEqualTo(customerMap.get("name"));
-    }
-
-    @Test
-    void testDeleteCustomer() throws Exception {
-        Customer customer = customerServiceImpl.listCustomers().get(0);
-
-        mockMvc.perform(delete(CustomerController.CUSTOMER_PATH + "/" + customer.getId())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
-
-        verify(customerService).deleleteById(uuidArgumentCaptor.capture());
-
-        assertThat(customer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
-    }
-
-    @Test
-    void testUpdateCustomer() throws Exception {
-        Customer customer = customerServiceImpl.listCustomers().get(0);
-
-        mockMvc.perform(put(CustomerController.CUSTOMER_PATH+ "/" + customer.getId())
-                        .content(objectMapper.writeValueAsString(customer))
-                        .contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get(CustomerController.CUSTOMER_PATH)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()", is(3)));
+    }
 
-        verify(customerService).updateCustomerById(uuidArgumentCaptor.capture(), any(Customer.class));
+    @Test
+    void getCustomerById() throws Exception {
+        Customer customer = customerServiceImpl.listCustomers().get(0);
 
-        assertThat(customer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+        given(customerService.getCustomerById(customer.getId())).willReturn(customer);
+
+        mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name", is(customer.getName())));
     }
 
     @Test
@@ -119,28 +95,50 @@ class CustomerControllerTest {
     }
 
     @Test
-    void listAllCustomers() throws Exception {
-        given(customerService.listCustomers()).willReturn(customerServiceImpl.listCustomers());
+    void testUpdateCustomer() throws Exception {
+        Customer customer = customerServiceImpl.listCustomers().get(0);
 
-        mockMvc.perform(get(CustomerController.CUSTOMER_PATH)
+        mockMvc.perform(put(CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .content(objectMapper.writeValueAsString(customer))
+                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.length()", is(3)));
+                .andExpect(status().isNoContent());
+
+        verify(customerService).updateCustomerById(uuidArgumentCaptor.capture(), any(Customer.class));
+
+        assertThat(customer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
     }
 
     @Test
-    void getCustomerById() throws Exception {
+    void testPatchCustomer() throws Exception {
         Customer customer = customerServiceImpl.listCustomers().get(0);
 
-        given(customerService.getCustomerById(customer.getId())).willReturn(customer);
+        Map<String, Object> customerMap = new HashMap<>();
+        customerMap.put("name", "New Name");
 
-        mockMvc.perform(get(CustomerController.CUSTOMER_PATH + "/" + customer.getId())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name", is(customer.getName())));
+        mockMvc.perform(patch( CustomerController.CUSTOMER_PATH_ID, customer.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customerMap)))
+                .andExpect(status().isNoContent());
 
+        verify(customerService).patchCustomerById(uuidArgumentCaptor.capture(),
+                customerArgumentCaptor.capture());
+
+        assertThat(uuidArgumentCaptor.getValue()).isEqualTo(customer.getId());
+        assertThat(customerArgumentCaptor.getValue().getName())
+                .isEqualTo(customerMap.get("name"));
+    }
+
+    @Test
+    void testDeleteCustomer() throws Exception {
+        Customer customer = customerServiceImpl.listCustomers().get(0);
+
+        mockMvc.perform(delete(CustomerController.CUSTOMER_PATH_ID,customer.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(customerService).deleleteById(uuidArgumentCaptor.capture());
+
+        assertThat(customer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
     }
 }
-
