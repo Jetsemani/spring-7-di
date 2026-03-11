@@ -8,10 +8,10 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@JsonDeserialize(builder = Customer.CustomerBuilder.class)
+@JsonDeserialize(builder = CustomerDTO.CustomerDTOBuilder.class)
 @Data
 @Builder
-public class Customer {
+public class CustomerDTO {
 
     @JsonProperty("name")
     private String name;
