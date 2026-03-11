@@ -28,12 +28,12 @@ public class BeerController {
     }
 
     @GetMapping(value = BEER_PATH_ID)
-    public Beer getBeerById(@PathVariable UUID beerId) {
-        return beerService.getBeerById(beerId);
+    public Beer getBeerById(@PathVariable("beerId") UUID beerId) {
+        return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
 
     @PutMapping(BEER_PATH_ID)
-    public ResponseEntity updateById(@PathVariable("beerId")UUID beerId, @RequestBody Beer beer) {
+    public ResponseEntity updateById(@PathVariable("beerId") UUID beerId, @RequestBody Beer beer) {
 
         beerService.updateBeerById(beerId, beer);
 
@@ -41,7 +41,7 @@ public class BeerController {
     }
 
     @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity updateBeerPatchById(@PathVariable("beerId")UUID beerId, @RequestBody Beer beer){
+    public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId, @RequestBody Beer beer){
 
         beerService.patchBeerById(beerId, beer);
 
