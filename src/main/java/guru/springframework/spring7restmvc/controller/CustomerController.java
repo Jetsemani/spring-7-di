@@ -21,6 +21,35 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @GetMapping(CUSTOMER_PATH)
+    public List<Customer> listAllCustomers(){
+        return customerService.listCustomers();
+    }
+
+    @GetMapping(value = CUSTOMER_PATH_ID)
+    public Customer getCustomerById(@PathVariable("customerId") UUID id){
+        return customerService.getCustomerById(id);
+    }
+
+    @PostMapping(CUSTOMER_PATH)
+    public ResponseEntity handlePost(@RequestBody Customer customer){
+        Customer savedCustomer = customerService.saveNewCustomer(customer);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", CUSTOMER_PATH + "/" + savedCustomer.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping(CUSTOMER_PATH_ID)
+    public ResponseEntity updateCustomerByID(@PathVariable("customerId") UUID customerId,
+                                             @RequestBody Customer customer){
+
+        customerService.updateCustomerById(customerId, customer);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
     @PatchMapping(CUSTOMER_PATH_ID)
     public ResponseEntity patchCustomerById(@PathVariable("customerId") UUID customerId,
                                             @RequestBody Customer customer){
@@ -37,34 +66,4 @@ public class CustomerController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-    @PutMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity updateCustomerByID(@PathVariable("customerId") UUID customerId,
-                                             @RequestBody Customer customer){
-
-        customerService.updateCustomerById(customerId, customer);
-
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity handlePost(@RequestBody Customer customer){
-        Customer savedCustomer = customerService.saveNewCustomer(customer);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", CUSTOMER_PATH + "/" + savedCustomer.getId().toString());
-
-        return new ResponseEntity(headers, HttpStatus.CREATED);
-    }
-
-    @GetMapping(CUSTOMER_PATH)
-    public List<Customer> listAllCustomers(){
-        return customerService.listCustomers();
-    }
-
-    @GetMapping(value = CUSTOMER_PATH_ID)
-    public Customer getCustomerById(@PathVariable("customerId") UUID id){
-        return customerService.getCustomerById(id);
-    }
-
 }
