@@ -27,13 +27,6 @@ public class BeerController {
         return beerService.listBeers();
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity handleNotFoundException() {
-        System.out.println("Exception OK -> Cerveza no encontrada por ID");
-        return ResponseEntity.notFound().build();
-    }
-
-
     @GetMapping(value = BEER_PATH_ID)
     public Beer getBeerById(@PathVariable UUID beerId) {
         return beerService.getBeerById(beerId);
@@ -46,7 +39,6 @@ public class BeerController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
 
     @PatchMapping(BEER_PATH_ID)
     public ResponseEntity updateBeerPatchById(@PathVariable("beerId")UUID beerId, @RequestBody Beer beer){
