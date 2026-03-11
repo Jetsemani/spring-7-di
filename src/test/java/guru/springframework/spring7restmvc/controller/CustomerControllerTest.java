@@ -5,6 +5,7 @@ import guru.springframework.spring7restmvc.services.CustomerService;
 import guru.springframework.spring7restmvc.services.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -99,6 +101,19 @@ class CustomerControllerTest {
     }
 
 
+    @Test
+    void testDeleteCustomer() throws Exception {
+        Customer customer = customerServiceImpl.listCustomers().get(0);
+
+        mockMvc.perform(delete("/api/v1/customer/" + customer.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        ArgumentCaptor<UUID> uuidArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
+        verify(customerService).deleleteById(uuidArgumentCaptor.capture());
+
+        assertThat(customer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+    }
 
 
 
