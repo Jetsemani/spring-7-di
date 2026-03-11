@@ -33,6 +33,8 @@ class BeerControllerTest {
 
     BeerServiceImpl beerServiceImpl;
 
+
+
     @Test
     void testListBeers() throws Exception {
         given(beerService.listBeers()).willReturn(beerServiceImpl.listBeers());
