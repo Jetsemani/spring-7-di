@@ -9,6 +9,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
@@ -20,6 +21,9 @@ class BeerControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @MockitoBean
     BeerService beerService;
@@ -51,4 +55,24 @@ class BeerControllerTest {
                 .andExpect(jsonPath("$.id", is(testBeer.getId().toString())))
                 .andExpect(jsonPath("$.beerName", is(testBeer.getBeerName())));
     }
+
+
+    @Test
+    void testCreateNewBeer() throws Exception {
+        Beer beer = beerServiceImpl.listBeers().get(0);
+
+        System.out.println(objectMapper.writeValueAsString(beer));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
