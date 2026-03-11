@@ -67,6 +67,14 @@ class BeerControllerTest {
     }
 
     @Test
+    void getBeerByIdNotFound() throws Exception {
+
+        given(beerService.getBeerById(any(UUID.class))).willThrow(NotFoundException.class);
+        mockMvc.perform(get(BeerController.BEER_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void getBeerById() throws Exception {
         Beer testBeer = beerServiceImpl.listBeers().get(0);
 
@@ -83,15 +91,15 @@ class BeerControllerTest {
     @Test
     void testCreateNewBeer() throws Exception {
         Beer beer = beerServiceImpl.listBeers().get(0);
-        beer.setId(null);
         beer.setVersion(null);
+        beer.setId(null);
 
         given(beerService.saveNewBeer(any(Beer.class))).willReturn(beerServiceImpl.listBeers().get(1));
 
-        mockMvc.perform(post(BEER_PATH)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(beer)))
+        mockMvc.perform(post(BeerController.BEER_PATH)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(beer)))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
     }
