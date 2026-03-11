@@ -1,14 +1,12 @@
 package guru.springframework.spring7restmvc.services;
 
 import guru.springframework.spring7restmvc.model.Customer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -20,25 +18,25 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer1 = Customer.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .customerName("Juan García")
+                .name("Juan García")
                 .createdDate(LocalDateTime.now())
-                .updatedDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
                 .build();
 
         Customer customer2 = Customer.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .customerName("María López")
+                .name("María López")
                 .createdDate(LocalDateTime.now())
-                .updatedDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
                 .build();
 
         Customer customer3 = Customer.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .customerName("Carlos Martínez")
+                .name("Carlos Martínez")
                 .createdDate(LocalDateTime.now())
-                .updatedDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
                 .build();
 
         customerMap.put(customer1.getId(), customer1);
@@ -62,9 +60,9 @@ public class CustomerServiceImpl implements CustomerService {
         Customer savedCustomer = Customer.builder()
                 .id(UUID.randomUUID())
                 .version(customer.getVersion())
-                .customerName(customer.getCustomerName())
+                .name(customer.getName())
                 .createdDate(LocalDateTime.now())
-                .updatedDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
                 .build();
 
         customerMap.put(savedCustomer.getId(), savedCustomer);
@@ -75,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomerById(UUID customerId, Customer customer) {
         Customer existing = customerMap.get(customerId);
-        existing.setCustomerName(customer.getCustomerName());
+        existing.setName(customer.getName());
 
         customerMap.put(existing.getId(), existing);
     }
@@ -90,8 +88,8 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer existing = customerMap.get(customerId);
 
-        if (StringUtils.hasText(customer.getCustomerName())) {
-            existing.setCustomerName(customer.getCustomerName());
+        if (StringUtils.hasText(customer.getName())) {
+            existing.setName(customer.getName());
         }
     }
 }
