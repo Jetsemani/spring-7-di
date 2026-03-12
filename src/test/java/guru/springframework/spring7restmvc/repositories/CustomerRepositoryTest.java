@@ -1,26 +1,32 @@
 package guru.springframework.spring7restmvc.repositories;
 
-import guru.springframework.spring7restmvc.entities.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@SpringBootTest
 class CustomerRepositoryTest {
 
     @Autowired
     CustomerRepository customerRepository;
 
+//    @Test
+//    void testSaveCustomer() {
+//
+//        Customer customer = customerRepository.save(Customer.builder()
+//                .name("New Name")
+//                .build());
+//
+//        assertThat(customer.getId()).isNotNull();
+//    }
+
     @Test
-    void testSaveCustomer() {
+    void testGetListOfCustomers() {
 
-        Customer customer = customerRepository.save(Customer.builder()
-                .name("New Name")
-                .build());
+        long count = customerRepository.count();
 
-        assertThat(customer.getId()).isNotNull();
+        assertThat(count).isEqualTo(3);
     }
-
 }
