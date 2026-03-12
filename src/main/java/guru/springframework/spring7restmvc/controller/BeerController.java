@@ -24,11 +24,13 @@ public class BeerController {
 
     @GetMapping(value = BEER_PATH)
     public List<BeerDTO> listBeers() {
+
         return beerService.listBeers();
     }
 
     @GetMapping(value = BEER_PATH_ID)
     public BeerDTO getBeerById(@PathVariable("beerId") UUID beerId) {
+
         return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
 
