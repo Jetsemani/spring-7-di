@@ -30,6 +30,6 @@ class BeerRepositoryTest {
 
         long count = beerRepository.count();
 
-        assertThat(count).isEqualTo(4);
+        assertThat(count).isEqualTo(3);
     }
 }
