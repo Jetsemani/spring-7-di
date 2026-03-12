@@ -23,4 +23,5 @@ class BeerRepositoryTest {
         assertThat(savedBeer).isNotNull();
         assertThat(savedBeer.getId()).isNotNull();
     }
+
 }
