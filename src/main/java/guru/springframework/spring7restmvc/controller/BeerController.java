@@ -65,7 +65,7 @@ public class BeerController {
     }
 
     @DeleteMapping(BEER_PATH_ID)
-    public ResponseEntity deleteById(@PathVariable("beerId")UUID beerId) {
+    public ResponseEntity deleteById(@PathVariable("beerId") UUID beerId) {
 
         if(!beerService.deleteById(beerId)) {
             throw new NotFoundException();
