@@ -65,7 +65,6 @@ public class BeerServiceImpl implements BeerService {
         return new ArrayList<>(beerMap.values());
     }
 
-
     @Override
     public Optional<BeerDTO> getBeerById(UUID id) {
 
@@ -96,6 +95,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public Optional<BeerDTO> updateBeerById(UUID beerId, BeerDTO beer) {
+
         BeerDTO existing = beerMap.get(beerId);
         existing.setBeerName(beer.getBeerName());
         existing.setPrice(beer.getPrice());
