@@ -34,6 +34,18 @@ public class BeerController {
         return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
 
+    @PostMapping(BEER_PATH)
+    //@RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity handlePost(@RequestBody BeerDTO beer) {
+
+        BeerDTO savedBeer = beerService.saveNewBeer(beer);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
     @PutMapping(BEER_PATH_ID)
     public ResponseEntity updateById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDTO beer) {
 
@@ -55,20 +67,10 @@ public class BeerController {
     @DeleteMapping(BEER_PATH_ID)
     public ResponseEntity deleteById(@PathVariable("beerId")UUID beerId) {
 
-        beerService.deleteById(beerId);
+        if(!beerService.deleteById(beerId)) {
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping(BEER_PATH)
-    //@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity handlePost(@RequestBody BeerDTO beer) {
-
-        BeerDTO savedBeer = beerService.saveNewBeer(beer);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
-
-        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 }
