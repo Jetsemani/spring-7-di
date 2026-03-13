@@ -12,12 +12,11 @@ import java.util.UUID;
 @Data
 @Builder
 public class CustomerDTO {
+    @JsonProperty("id")
+    private UUID id;
 
     @JsonProperty("name")
     private String name;
-
-    @JsonProperty("id")
-    private UUID id;
 
     @JsonProperty("version")
     private Integer version;

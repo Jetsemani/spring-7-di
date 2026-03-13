@@ -14,13 +14,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
-
     @Id
-    @GeneratedValue(generator = "UUId")
+    @GeneratedValue(generator = "UUID")
     @UuidGenerator
     @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
     private UUID id;
-
     private String name;
 
     @Version
