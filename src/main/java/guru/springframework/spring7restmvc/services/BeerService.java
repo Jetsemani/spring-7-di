@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 public interface BeerService {
 
     List<BeerDTO> listBeers();
@@ -18,5 +21,5 @@ public interface BeerService {
 
     Boolean deleteById(UUID beerId);
 
-    void patchBeerById(UUID beerId, BeerDTO beer);
+    Optional<BeerDTO> patchBeerById(UUID beerId, BeerDTO beer);
 }
