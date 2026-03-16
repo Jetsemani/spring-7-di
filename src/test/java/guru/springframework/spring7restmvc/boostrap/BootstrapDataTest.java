@@ -1,5 +1,6 @@
 package guru.springframework.spring7restmvc.boostrap;
 
+import guru.springframework.spring7restmvc.bootstrap.BootstrapData;
 import guru.springframework.spring7restmvc.repositories.BeerRepository;
 import guru.springframework.spring7restmvc.repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
