@@ -165,3 +165,10 @@ class BeerControllerIT {
         assertThat(dtos.size()).isEqualTo(0);
     }
 }
+
+
+
+
+
+
+

@@ -78,9 +78,9 @@ class CustomerControllerIT {
     @Transactional
     @Test
     void saveNewBeerTest() {
-        CustomerDTO customerDTO = CustomerDTO.builder()
-                .name("TEST")
-                .build();
+       CustomerDTO customerDTO = CustomerDTO.builder()
+               .name("TEST")
+               .build();
 
         ResponseEntity responseEntity = customerController.handlePost(customerDTO);
 
@@ -125,3 +125,13 @@ class CustomerControllerIT {
         assertThat(customerDTO).isNotNull();
     }
 }
+
+
+
+
+
+
+
+
+
+

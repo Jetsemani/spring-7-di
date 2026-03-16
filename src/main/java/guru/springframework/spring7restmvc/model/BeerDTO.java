@@ -11,6 +11,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @JsonDeserialize(builder = BeerDTO.BeerDTOBuilder.class)
 @Builder
 @Data

@@ -63,8 +63,8 @@ class CustomerControllerTest {
         customerMap.put("name", "New Name");
 
         mockMvc.perform(patch( CustomerController.CUSTOMER_PATH_ID, customer.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(customerMap)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(customerMap)))
                 .andExpect(status().isNoContent());
 
         verify(customerService).patchCustomerById(uuidArgumentCaptor.capture(),
@@ -82,7 +82,7 @@ class CustomerControllerTest {
         given(customerService.deleteCustomerById(any())).willReturn(true);
 
         mockMvc.perform(delete(CustomerController.CUSTOMER_PATH_ID, customer.getId())
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         verify(customerService).deleteCustomerById(uuidArgumentCaptor.capture());
@@ -98,9 +98,9 @@ class CustomerControllerTest {
                 .build()));
 
         mockMvc.perform(put(CustomerController.CUSTOMER_PATH_ID, customer.getId())
-                        .content(objectMapper.writeValueAsString(customer))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                .content(objectMapper.writeValueAsString(customer))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         verify(customerService).updateCustomerById(uuidArgumentCaptor.capture(), any(CustomerDTO.class));
@@ -118,8 +118,8 @@ class CustomerControllerTest {
                 .willReturn(customerServiceImpl.getAllCustomers().get(1));
 
         mockMvc.perform(post(CustomerController.CUSTOMER_PATH).contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(customer)))
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
     }
@@ -129,7 +129,7 @@ class CustomerControllerTest {
         given(customerService.getAllCustomers()).willReturn(customerServiceImpl.getAllCustomers());
 
         mockMvc.perform(get(CustomerController.CUSTOMER_PATH)
-                        .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()", is(3)));
@@ -157,3 +157,13 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.name", is(customer.getName())));
     }
 }
+
+
+
+
+
+
+
+
+
+
