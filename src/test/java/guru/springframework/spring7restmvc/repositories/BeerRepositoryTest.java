@@ -36,10 +36,10 @@ class BeerRepositoryTest {
     @Test
     void testSaveBeer() {
         Beer savedBeer = beerRepository.save(Beer.builder()
-                .beerName("My Beer")
-                .beerStyle(BeerStyle.PALE_ALE)
-                .upc("234234234234")
-                .price(new BigDecimal("11.99"))
+                        .beerName("My Beer")
+                        .beerStyle(BeerStyle.PALE_ALE)
+                        .upc("234234234234")
+                        .price(new BigDecimal("11.99"))
                 .build());
 
         beerRepository.flush();
